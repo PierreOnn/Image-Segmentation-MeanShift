@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.spatial.distance
-
+import pandas as pd
 
 def findpeak(data, idx, r):
     data_point = data[idx, :].reshape(1, -1)
@@ -49,20 +49,24 @@ def meanshift_opt(data, r, c):
         neighbors_peak = np.where(distances_peak <= r / 2)[1]
         if neighbors_peak.size == 0:
             labels[i] = np.amax(labels) + 1
-            labels[cpts] = labels[i]
             peak_labels = np.append(peak_labels, labels[i], axis=0)
             peaks = np.append(peaks, peak_potential, axis=0)
 
             distances_peak_points = scipy.spatial.distance.cdist(peak_potential, data, metric='euclidean')
-            neighbors_peak = np.where(distances_peak_points <= r)[1]
-            labels[neighbors_peak] = labels[i]
-
+            peak_basin = (distances_peak_points <= r)
+            speedup = (peak_basin + cpts.transpose())
+            speedup_close = np.nonzero(speedup)[1]
+            labels[speedup_close] = labels[i]
         elif neighbors_peak.size == 1:
             labels[i] = peak_labels[neighbors_peak]
-            labels[cpts] = labels[i]
+            speedup = cpts.transpose()
+            speedup_close = np.nonzero(speedup)[1]
+            labels[speedup_close] = labels[i]
         else:
             labels[i] = peak_labels[np.random.choice(neighbors_peak)]
-            labels[cpts] = labels[i]
+            speedup = cpts.transpose()
+            speedup_close = np.nonzero(speedup)[1]
+            labels[speedup_close] = labels[i]
     return labels, peaks
 
 

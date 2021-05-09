@@ -1,7 +1,7 @@
 from scipy.io import loadmat
 from algorithm import *
 from plotclusters3D import *
-import pandas as pd
+
 
 def main():
     matfile = loadmat('../data/pts.mat')
