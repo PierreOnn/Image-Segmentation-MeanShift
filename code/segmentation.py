@@ -28,8 +28,7 @@ def imSegment(im, r, c, feature_type):
     segmIm = np.zeros((np.size(image_2d, 0), np.size(image_2d, 1)))
     for label, peak in enumerate(peaks):
         label = label + 1
-        pixel_assigned = np.where(labels == label)[0]
-        segmIm[pixel_assigned, :] = peak
+        segmIm[np.where(labels == label)[0]] = peak
     segmIm = np.reshape(segmIm, (height, width, 3))
     segmIm = color.lab2rgb(segmIm)
     return segmIm, labels, peaks

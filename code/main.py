@@ -20,7 +20,7 @@ def main():
     # plotclusters3D(image_2d, labels, peaks)
     # plt.show()
 
-    image = io.imread('../images/55075.jpg')
+    image = io.imread('../images/181091.jpg')
     segmIm, labels, peaks = imSegment(image, 30, 4, '5D')
     io.imshow(segmIm)
     io.show()
