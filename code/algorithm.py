@@ -79,7 +79,7 @@ def findpeak_opt(data, idx, r, c):
         distances = scipy.spatial.distance.cdist(data_point, data, metric='euclidean')
         neighbors = np.where(distances <= r)[1]
         data_points_neighbors = data[neighbors, :]
-        mean = np.mean(data_points_neighbors, axis=0).reshape(1, 3)
+        mean = np.mean(data_points_neighbors, axis=0).reshape(1, -1)
         shift = scipy.spatial.distance.cdist(data_point, mean, metric='euclidean')
         data_point = mean
 
