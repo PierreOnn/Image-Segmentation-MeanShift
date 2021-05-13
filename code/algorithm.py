@@ -8,7 +8,7 @@ def findpeak(data, idx, r):
     shift = np.amax(data) - np.amin(data)
     while shift > threshold:
         distances = scipy.spatial.distance.cdist(data_point, data, metric='euclidean')
-        neighbors = np.where(distances <= r)[-1]
+        neighbors = np.where(distances <= r)[1]
         data_points_neighbors = data[neighbors, :]
         mean = np.mean(data_points_neighbors, axis=0).reshape(1, 3)
         shift = scipy.spatial.distance.cdist(data_point, mean, metric='euclidean')
