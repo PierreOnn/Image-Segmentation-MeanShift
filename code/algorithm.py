@@ -18,9 +18,29 @@ def findpeak(data, idx, r):
     return peak
 
 
+def findpeak_opt(data, idx, r, c):
+    data_point = data[idx, :].reshape(1, -1)
+    cpts = np.zeros((np.size(data, 0), 1), dtype=int)
+    threshold = 0.01
+    shift = np.amax(data) - np.amin(data)
+    while shift > threshold:
+        distances = scipy.spatial.distance.cdist(data_point, data, metric='euclidean')
+        neighbors = np.where(distances <= r)[-1]
+        data_points_neighbors = data[neighbors, :]
+        mean = np.mean(data_points_neighbors, axis=0).reshape(1, -1)
+        shift = scipy.spatial.distance.cdist(data_point, mean, metric='euclidean')
+        data_point = mean
+
+        neighbors_close = np.where(distances <= r / c)[-1]
+        cpts[neighbors_close] = 1
+    else:
+        peak = mean
+    return peak, cpts
+
+
 def meanshift(data, r):
     labels = np.zeros((np.size(data, 0), 1), dtype=int)
-    peaks = np.empty((0, len(data[0])))
+    peaks = np.empty((0, np.size(data, 1)))
     peak_labels = []
     for i in range(0, len(data)):
         peak_potential = findpeak(data, i, r)
@@ -39,7 +59,7 @@ def meanshift(data, r):
 
 def meanshift_opt(data, r, c):
     labels = np.zeros((np.size(data, 0), 1), dtype=int)
-    peaks = np.empty((0, len(data[0])))
+    peaks = np.empty((0, np.size(data, 1)))
     peak_labels = []
     for i in range(0, len(data)):
         if labels[i] != 0:
@@ -68,23 +88,3 @@ def meanshift_opt(data, r, c):
             speedup_close = np.nonzero(speedup)[-1]
             labels[speedup_close] = labels[i]
     return labels, peaks
-
-
-def findpeak_opt(data, idx, r, c):
-    data_point = data[idx, :].reshape(1, -1)
-    cpts = np.zeros((np.size(data, 0), 1), dtype=int)
-    threshold = 0.01
-    shift = np.amax(data) - np.amin(data)
-    while shift > threshold:
-        distances = scipy.spatial.distance.cdist(data_point, data, metric='euclidean')
-        neighbors = np.where(distances <= r)[-1]
-        data_points_neighbors = data[neighbors, :]
-        mean = np.mean(data_points_neighbors, axis=0).reshape(1, -1)
-        shift = scipy.spatial.distance.cdist(data_point, mean, metric='euclidean')
-        data_point = mean
-
-        neighbors_close = np.where(distances <= r / c)[-1]
-        cpts[neighbors_close] = 1
-    else:
-        peak = mean
-    return peak, cpts

@@ -14,16 +14,16 @@ def main():
     # plotclusters3D(data, labels, peaks)
     # plt.show()
 
-    # image = io.imread('../images/55075.jpg')
-    # image_2d = np.reshape(image, (-1, 3))
-    # labels, peaks = meanshift_opt(image_2d, 30, 4)
-    # plotclusters3D(image_2d, labels, peaks)
-    # plt.show()
-
     image = io.imread('../images/181091.jpg')
-    segmIm, labels, peaks = imSegment(image, 30, 4, '5D')
-    io.imshow(segmIm)
-    io.show()
+    image_2d = np.reshape(image, (-1, 3))
+    labels, peaks = meanshift_opt(image_2d, 30, 4)
+    plotclusters3D(image_2d, labels, peaks)
+    plt.show()
+
+    # image = io.imread('../images/181091.jpg')
+    # segmIm, labels, peaks = imSegment(image, 30, 4, '3D')
+    # io.imshow(segmIm)
+    # io.show()
 
 
 if __name__ == "__main__":
