@@ -22,6 +22,7 @@ def plotclusters3D(data, labels, peaks):
         # color = np.random.uniform(0, 1, 3)
         # TODO: instead of random color, you can use peaks when you work on actual images
         color = peak
+        print(idx)
         cluster = data[np.where(labels == idx)[0]].T
         ax.scatter(cluster[0], cluster[1], cluster[2], c=[color], s=.5)
     fig.show()

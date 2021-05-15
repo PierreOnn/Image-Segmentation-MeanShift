@@ -24,7 +24,7 @@ def meanshift(data, r):
     peak_labels = []
     for i in range(0, len(data)):
         peak_potential = findpeak(data, i, r)
-        distances_peak = ns.scipy.spatial.distance.cdist(peak_potential, peaks, metric='euclidean')
+        distances_peak = scipy.spatial.distance.cdist(peak_potential, peaks, metric='euclidean')
         neighbors_peak = np.where(distances_peak <= r / 2)[-1]
         if neighbors_peak.size == 0:
             labels[i] = np.amax(labels) + 1

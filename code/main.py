@@ -4,6 +4,7 @@ from segmentation import *
 from algorithm import *
 from plotclusters3D import *
 import matplotlib.pyplot as plt
+import time
 
 
 def main():
@@ -12,18 +13,24 @@ def main():
     # data = data.transpose()
     # labels, peaks = meanshift_opt(data, 2, 4)
     # plotclusters3D(data, labels, peaks)
+    # plt.savefig('../experiments/pts3dplot.png')
     # plt.show()
 
-    image = io.imread('../images/181091.jpg')
-    image_2d = np.reshape(image, (-1, 3))
-    labels, peaks = meanshift_opt(image_2d, 30, 4)
-    plotclusters3D(image_2d, labels, peaks)
-    plt.show()
-
     # image = io.imread('../images/181091.jpg')
-    # segmIm, labels, peaks = imSegment(image, 30, 4, '3D')
-    # io.imshow(segmIm)
-    # io.show()
+    # image_2d = np.reshape(image, (-1, 3))
+    # labels, peaks = meanshift_opt(image_2d, 30, 2)
+    # plotclusters3D(image_2d, labels, peaks)
+    # plt.savefig('../experiments/181091_r10_c4.png')
+    # plt.show()
+
+    t0 = time.time()
+    image = io.imread('../images/181091.jpg')
+    segmIm, labels, peaks = imSegment(image, 30, 4, '3D')
+    t1 = time.time()
+    print(t1 - t0)
+    io.imshow(segmIm)
+    plt.savefig('../experiments/181091.png')
+    io.show()
 
 
 if __name__ == "__main__":
