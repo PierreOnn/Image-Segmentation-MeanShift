@@ -19,9 +19,11 @@ def imSegment(im, r, c, feature_type):
         xx, yy = np.meshgrid(range(1, width + 1), range(1, height + 1))
         x = np.reshape(xx, (height * width, 1))
         y = np.reshape(yy, (height * width, 1))
-        im_space = np.append(im_space, x, axis=1)
-        im_space = np.append(im_space, y, axis=1)
-        labels, peaks = meanshift_opt(im_space, r, c)
+        im_space_x = np.append(im_space, x, axis=1)
+        im_space_xy = np.append(im_space_x, y, axis=1)
+        labels, peaks_xy = meanshift_opt(im_space_xy, r, c)
+        peaks = peaks_xy[:, 0:3]
+        im_space = im_space_xy[:, 0:3]
     else:
         print('Incorrect dimension')
 
