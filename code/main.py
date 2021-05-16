@@ -5,6 +5,7 @@ from algorithm import *
 from plotclusters3D import *
 import matplotlib.pyplot as plt
 import time
+import cv2
 
 
 def main():
@@ -25,11 +26,12 @@ def main():
 
     t0 = time.time()
     image = io.imread('../images/181091.jpg')
-    segmIm, labels, peaks = imSegment(image, 30, 4, '3D')
+    image_blur = cv2.blur(image,(20,20))
+    segmIm, labels, peaks = imSegment(image_blur, 30, 4, '5D')
     t1 = time.time()
     print(t1 - t0)
     io.imshow(segmIm)
-    plt.savefig('../experiments/181091.png')
+    plt.savefig('../experiments/181091_blur_segm_r10_c4_5d.png')
     io.show()
 
 

@@ -19,13 +19,13 @@ def imSegment(im, r, c, feature_type):
         xx, yy = np.meshgrid(range(1, width + 1), range(1, height + 1))
         x = np.reshape(xx, (height * width, 1))
         y = np.reshape(yy, (height * width, 1))
-        im_space_x = np.append(im_space, x, axis=1)
-        im_space_xy = np.append(im_space_x, y, axis=1)
-        labels, peaks = meanshift_opt(im_space_xy, r, c)
+        im_space = np.append(im_space, x, axis=1)
+        im_space = np.append(im_space, y, axis=1)
+        labels, peaks = meanshift_opt(im_space, r, c)
     else:
         print('Incorrect dimension')
 
-    segmIm = np.zeros((np.size(image_2d, 0), np.size(image_2d, 1)))
+    segmIm = np.zeros((len(im_space), len(im_space[0])))
     for label, peak in enumerate(peaks, start=1):
         segmIm[np.where(labels == label)[0]] = peak
     segmIm = np.reshape(segmIm, (height, width, 3))
