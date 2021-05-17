@@ -18,6 +18,7 @@ def plotclusters3D(data, labels, peaks):
     bgr_peaks = np.array(peaks[:, 0:3], dtype=float)
     rgb_peaks = bgr_peaks[..., ::-1]
     rgb_peaks /= 255.0
+    # labels are initialized with 0 and numbered from 1 when assigned to peak, therefore index starts at 1
     for idx, peak in enumerate(rgb_peaks, start=1):
         # color = np.random.uniform(0, 1, 3)
         # TODO: instead of random color, you can use peaks when you work on actual images

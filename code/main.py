@@ -24,12 +24,12 @@ def main():
     # plt.show()
 
     t0 = time.time()
-    image = io.imread('../images/monalisa.jpg')
-    segmIm, labels, peaks = imSegment(image, 10, 8, '3D')
+    image = io.imread('../images/55075.jpg')
+    segmIm, labels, peaks = imSegment(image, 30, 2, '3D')
     t1 = time.time()
     print(t1 - t0)
     io.imshow(segmIm)
-    plt.savefig('../experiments/monalisa_r10_c8_3d.png')
+    plt.savefig('../experiments/55075_r30_c2_3d.png')
     io.show()
 
 
