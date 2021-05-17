@@ -26,11 +26,11 @@ def main():
 
     t0 = time.time()
     image = io.imread('../images/368078.jpg')
-    segmIm, labels, peaks = imSegment(image, 2, 2, '3D')
+    segmIm, labels, peaks = imSegment(image, 30, 2, '3D')
     t1 = time.time()
     print(t1 - t0)
     io.imshow(segmIm)
-    plt.savefig('../experiments/368078_r2_c2_3d.png')
+    plt.savefig('../experiments/368078_r30_c2_3d.png')
     io.show()
 
 
