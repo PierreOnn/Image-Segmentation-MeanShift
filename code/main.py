@@ -5,6 +5,7 @@ from algorithm import *
 from plotclusters3D import *
 import matplotlib.pyplot as plt
 import time
+import cv2
 
 
 def main():
@@ -24,12 +25,12 @@ def main():
     # plt.show()
 
     t0 = time.time()
-    image = io.imread('../images/55075.jpg')
-    segmIm, labels, peaks = imSegment(image, 30, 2, '3D')
+    image = io.imread('../images/368078.jpg')
+    segmIm, labels, peaks = imSegment(image, 2, 2, '3D')
     t1 = time.time()
     print(t1 - t0)
     io.imshow(segmIm)
-    plt.savefig('../experiments/55075_r30_c2_3d.png')
+    plt.savefig('../experiments/368078_r2_c2_3d.png')
     io.show()
 
 
